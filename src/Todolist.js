@@ -15,6 +15,13 @@ class TodoList1 extends Component {
     });
   };
 
+componentDidMount(){
+    let list = JSON.parse(localStorage.getItem('list'))
+    this.setState({
+     list
+    })
+}
+
   HandleEnter = (e) => {
     const { text, list } = this.state;
     if (text.trim() == "") {
@@ -32,6 +39,8 @@ class TodoList1 extends Component {
             },
           ],
           text: "",
+        },()=>{
+            localStorage.setItem('list',JSON.stringify(this.state.list))
         });
       } else {
         this.setState({
@@ -44,6 +53,8 @@ class TodoList1 extends Component {
     const { list } = this.state;
     this.setState({
       list: list.filter((item, index) => index !== id),
+    },()=>{
+        localStorage.setItem('list',JSON.stringify(this.state.list))
     });
   };
   handleAddClick = () => {
@@ -95,7 +106,10 @@ class TodoList1 extends Component {
 
    delete originalValues[id]
    this.setState({
-     originalValues
+     originalValues,
+     list
+   },()=>{
+    localStorage.setItem('list',JSON.stringify(this.state.list))
    })
   }
   handleEnterEdit=(e,id)=>{
@@ -104,6 +118,8 @@ class TodoList1 extends Component {
           list[id].isEditing = false
           this.setState({
               list
+          },()=>{
+            localStorage.setItem('list',JSON.stringify(this.state.list))
           })
       }
   }
@@ -115,7 +131,7 @@ class TodoList1 extends Component {
         <h1>TodoList</h1>
         <input
           type="text"
-          placeholder="Add item "
+          placeholder="Add item"
           value={text}
           onChange={this.handleChange}
           onKeyPress={this.HandleEnter}
