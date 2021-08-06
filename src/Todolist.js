@@ -54,7 +54,7 @@ class TodoList1 extends Component {
    
     render() {
         const { text, list } = this.state;
-        console.log(list)
+        // console.log(list)
         return (
             <div>
                 <h1>TodoList</h1>
