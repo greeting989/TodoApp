@@ -98,6 +98,15 @@ class TodoList1 extends Component {
      originalValues
    })
   }
+  handleEnterEdit=(e,id)=>{
+      let list =  this.state.list;
+      if(list[id].name.trim() && e.key === "Enter"){
+          list[id].isEditing = false
+          this.setState({
+              list
+          })
+      }
+  }
   render() {
     const { text, list } = this.state;
     console.log(this.state)
@@ -123,7 +132,7 @@ class TodoList1 extends Component {
                     type="text"
                     value={item.name}
                     onChange={(e)=>this.editHandlerInput(e,index)}
-                    onKeyPress={this.HandleEnter}
+                    onKeyPress={(e)=>this.handleEnterEdit(e,index)}
                   />
                 ) : (
                   <span>{item.name}</span>
